@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace Commandos27._05
 {
-    internal class Weapon
+    internal class Weapon : IWeapon, IShootable
     {
         private string name;
         private string manufacturer;
         private int numberOfBullets;
+
+        public string Name { get => name; }
+        public string Manufacturer { get => manufacturer; }
+        public int Bullets { get => numberOfBullets; set => numberOfBullets = value; }
+
 
         public Weapon(string name, string manufacturer, int numberOfBullets)
         {
@@ -21,7 +26,7 @@ namespace Commandos27._05
 
         public void Shoot()
         {
-            if (numberOfBullets > 0)
+            if (CanShoot())
             {
                 Console.WriteLine($"{name} is shooting.");
                 numberOfBullets--;
@@ -30,6 +35,16 @@ namespace Commandos27._05
             {
                 Console.WriteLine($"{name} has no bullets left.");
             }
+        }
+
+        public bool CanShoot()
+        {
+            return numberOfBullets > 0;
+        }
+
+        public void Use()
+        {
+            Shoot();
         }
     }
 }
